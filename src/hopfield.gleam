@@ -4,6 +4,7 @@ import gleam/list
 import gleam/result
 import gleam/string
 import gsv
+import prng/random
 import simplifile
 
 pub type HopfiledNet {
@@ -15,7 +16,7 @@ pub fn new(size: Int) -> HopfiledNet {
 }
 
 pub fn recall(net: HopfiledNet, state: List(Float)) {
-  update(net, state, 100)
+  update(net, state, 10)
 }
 
 pub fn update(net: HopfiledNet, state: List(Float), iters: Int) {
@@ -93,6 +94,9 @@ pub fn print_pattern(state: List(Float), size: Int) {
 pub fn main() {
   let assert Ok(csv_data) = simplifile.read("data/large-25x25.csv")
   let width = 25
+  let gen = random.float(0.0, 1.0)
+  let noise_prob = 0.2
+  let index = 2
 
   let assert Ok(string_data) = gsv.to_lists(csv_data)
   let patterns =
@@ -101,22 +105,23 @@ pub fn main() {
       list.map(x, fn(x) { x |> int.parse |> result.unwrap(0) |> int.to_float })
     })
   let size = list.first(patterns) |> result.unwrap([]) |> list.length
-  let pattern = patterns |> list.take(1) |> list.last |> result.unwrap([])
+  let pattern =
+    patterns |> list.take(index + 1) |> list.last |> result.unwrap([])
   let noisy_pattern =
     pattern
-    |> list.index_map(fn(x, i) {
-      case i % 10 == 0 {
-        True -> x *. -1.0
+    |> list.map(fn(x) {
+      case random.random_sample(gen) <. noise_prob {
         False -> x
+        True -> x *. -1.0
       }
     })
 
   let net = new(size) |> train(patterns)
 
-  io.println("Pattern")
+  io.println("\n === Pattern === ")
   print_pattern(pattern, width)
-  io.println("Noisy Pattern")
+  io.println("\n === Noisy Pattern === ")
   print_pattern(noisy_pattern, width)
-  io.println("Recalled Pattern")
+  io.println("\n === Recalled Pattern === ")
   print_pattern(recall(net, noisy_pattern), width)
 }

@@ -3,9 +3,11 @@
 
 packages = [
   { name = "filepath", version = "1.0.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "filepath", source = "hex", outer_checksum = "EFB6FF65C98B2A16378ABC3EE2B14124168C0CE5201553DE652E2644DCFDB594" },
+  { name = "gleam_bitwise", version = "1.3.1", build_tools = ["gleam"], requirements = [], otp_app = "gleam_bitwise", source = "hex", outer_checksum = "B36E1D3188D7F594C7FD4F43D0D2CE17561DE896202017548578B16FE1FE9EFC" },
   { name = "gleam_stdlib", version = "0.40.0", build_tools = ["gleam"], requirements = [], otp_app = "gleam_stdlib", source = "hex", outer_checksum = "86606B75A600BBD05E539EB59FABC6E307EEEA7B1E5865AFB6D980A93BCB2181" },
   { name = "gleeunit", version = "1.2.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "gleeunit", source = "hex", outer_checksum = "F7A7228925D3EE7D0813C922E062BFD6D7E9310F0BEE585D3A42F3307E3CFD13" },
   { name = "gsv", version = "2.0.3", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "gsv", source = "hex", outer_checksum = "90E66EF92AFF1BE14238822A4A94C3C056B340725611EE0442ED8D5BCE1C0A66" },
+  { name = "prng", version = "3.0.3", build_tools = ["gleam"], requirements = ["gleam_bitwise", "gleam_stdlib"], otp_app = "prng", source = "hex", outer_checksum = "53006736FE23A0F61828C95B505193E10905D8DB76E128F1642D3E571E08F589" },
   { name = "simplifile", version = "2.2.0", build_tools = ["gleam"], requirements = ["filepath", "gleam_stdlib"], otp_app = "simplifile", source = "hex", outer_checksum = "0DFABEF7DC7A9E2FF4BB27B108034E60C81BEBFCB7AB816B9E7E18ED4503ACD8" },
 ]
 
@@ -13,4 +15,5 @@ packages = [
 gleam_stdlib = { version = ">= 0.34.0 and < 2.0.0" }
 gleeunit = { version = ">= 1.0.0 and < 2.0.0" }
 gsv = { version = ">= 2.0.3 and < 3.0.0" }
-simplifile = { version = ">= 2.2.0 and < 3.0.0"}
+prng = { version = ">= 3.0.3 and < 4.0.0"}
+simplifile = { version = ">= 2.2.0 and < 3.0.0" }
